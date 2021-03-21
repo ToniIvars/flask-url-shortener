@@ -71,3 +71,9 @@ def redirect_to_url(digitos):
 
     else:
         return render_template('redirect_error.html', url=url)
+
+@app.route('/api')
+def api_mode():
+    url = request.args['url']
+
+    return {'url':url}
