@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center" style="padding: 2% 0 1% 0; font-weight: bold;">Error</h1>
+    <p class="text-center">No puedes acceder a la url 'acortado' directamente.</p>
+    <div class="d-flex justify-content-center">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Ir al inicio</a>
+    </div>
+{% endblock %}

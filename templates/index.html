@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center" style="padding: 2% 0 1% 0; font-weight: bold;">Acorta-URL</h1>
+    <form method="post" action="{{ url_for('acortado') }}">
+        <div class="form-group d-flex justify-content-center">
+            <input type="text" name="data" placeholder="Escribe la URL..."
+                  class="form-control"></input>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Acortar</button>
+        </div>
+    </form>
+{% endblock %}
