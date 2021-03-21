@@ -76,6 +76,12 @@ def redirect_to_url(digitos):
 def api_mode():
     url = request.args['url']
 
+    if not url:
+        return 'You must enter a url as an argument (/api?url=https://www.google.com)'
+
+    elif 'http' not in url:
+        return 'You must enter a valid url'
+
     url_acortada = shortener(url)
 
     return {'original':url, 'shortened':url_acortada}
