@@ -14,7 +14,7 @@ def shortener(url):
                 return tuple(data.keys())[d_val.index(url)]
 
             digitos = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
-            url_acortada = f'https://acorta-url.herokuapp.com/{"".join(sample(digitos, 7))}'
+            url_acortada = f'http://localhost:5000/{"".join(sample(digitos, 7))}'
 
             dictionary = {url_acortada:url}
             data.update(dictionary)
@@ -22,7 +22,7 @@ def shortener(url):
 
         except:
             digitos = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
-            url_acortada = f'https://acorta-url.herokuapp.com/{"".join(sample(digitos, 7))}'
+            url_acortada = f'http://localhost:5000/{"".join(sample(digitos, 7))}'
 
             data = {url_acortada:url}
 
@@ -56,7 +56,7 @@ def acortado():
 
 @app.route('/<digitos>', methods=('GET',))
 def redirect_to_url(digitos):
-    url = f'https://acorta-url.herokuapp.com/{digitos}'
+    url = f'http://localhost:5000/{digitos}'
     
     try:
         with open('urls.json', 'r') as f:
