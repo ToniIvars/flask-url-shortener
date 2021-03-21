@@ -76,4 +76,6 @@ def redirect_to_url(digitos):
 def api_mode():
     url = request.args['url']
 
-    return {'url':url}
+    url_acortada = shortener(url)
+
+    return {'original':url, 'shortened':url_acortada}
