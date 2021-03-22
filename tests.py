@@ -18,6 +18,20 @@ class URLTests(unittest.TestCase):
 
         self.assertIn(b'Debes escribir una URL', response1.data)
         self.assertIn(b'Debes escribir una URL', response2.data)
+    
+    def test_go_to_shortened_url(self):
+        response = self.app.post('/acortado', follow_redirects=True, data={'data':'https://www.google.com'})
+        url_index = str(response.data).find('<a href')
+        url = str(response.data)[url_index+8:url_index+37]
+
+        response = self.app.get(f'/{url.split("/")[-1]}', follow_redirects=True)
+        
+        self.assertEqual(response.status_code, 200)
+
+    # def test_go_to_invalid_shortened_url(self):
+    #     response = self.app.get('/ongonboerngonwgji', follow_redirects=True)
+        
+    #     self.assertEqual(response.status_code, 400)
 
 if __name__ == '__main__':
     unittest.main()
