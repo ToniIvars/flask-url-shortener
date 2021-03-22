@@ -65,7 +65,7 @@ def redirect_to_url(digitos):
     except:
         return render_template('redirect_error.html', url=url)
     
-    if dictionary[url]:
+    if url in dictionary.keys():
         redirect_url = dictionary[url]
         return render_template('redirect.html', url=redirect_url)
 
