@@ -8,6 +8,11 @@ class URLTests(unittest.TestCase):
         app.config['DEBUG'] = False
         self.app = app.test_client()
     
+    def tearDown(self):
+        with open('urls.json', 'w') as f:
+            f.write('')
+            f.close()
+    
     def test_shorten_valid_url(self):
         response = self.app.post('/acortado', follow_redirects=True, data={'data':'https://www.google.com'})
         self.assertIn(b'URL acortada:', response.data)
