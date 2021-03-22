@@ -1,9 +1,13 @@
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, abort
 from random import sample
 import json
 
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BFhsdDSBnsfgFDNGmjfgdsTSdhgfHGMJKFI'
+app.register_error_handler(404, page_not_found)
 
 def shortener(url):
     with open('urls.json', 'r+') as f:
@@ -63,14 +67,14 @@ def redirect_to_url(digitos):
             dictionary = json.load(f)
             f.close()
     except:
-        return render_template('redirect_error.html', url=url)
+        return abort(404)
     
     if url in dictionary.keys():
         redirect_url = dictionary[url]
         return render_template('redirect.html', url=redirect_url)
 
     else:
-        return render_template('redirect_error.html', url=url)
+        return abort(404)
 
 @app.route('/api')
 def api_mode():
