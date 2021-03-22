@@ -28,10 +28,10 @@ class URLTests(unittest.TestCase):
         
         self.assertEqual(response.status_code, 200)
 
-    # def test_go_to_invalid_shortened_url(self):
-    #     response = self.app.get('/ongonboerngonwgji', follow_redirects=True)
+    def test_go_to_invalid_shortened_url(self):
+        response = self.app.get('/ongonboerngonwgji', follow_redirects=True)
         
-    #     self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main()
