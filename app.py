@@ -11,29 +11,26 @@ app.register_error_handler(404, page_not_found)
 
 def shortener(url):
     with open('urls.json', 'r+') as f:
+        digits = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
+        shortened_url = f'http://localhost:5000/{"".join(sample(digits, 7))}'
+
         try:
             data = json.load(f)
-            d_val = tuple(data.values())
-            if url in d_val:
-                return tuple(data.keys())[d_val.index(url)]
+            data_values = tuple(data.values())
+            if url in data_values:
+                return tuple(data.keys())[data_values.index(url)]
 
-            digitos = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
-            url_acortada = f'http://localhost:5000/{"".join(sample(digitos, 7))}'
-
-            dictionary = {url_acortada:url}
+            dictionary = {shortened_url:url}
             data.update(dictionary)
             f.seek(0)
 
         except:
-            digitos = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
-            url_acortada = f'http://localhost:5000/{"".join(sample(digitos, 7))}'
-
-            data = {url_acortada:url}
+            data = {shortened_url:url}
 
         json.dump(data, f, indent=4)
         f.close()
 
-    return url_acortada
+    return shortened_url
 
 @app.route('/', methods=('GET',))
 def index():    
@@ -58,9 +55,9 @@ def acortado():
     else:
         return render_template('error.html')
 
-@app.route('/<digitos>', methods=('GET',))
-def redirect_to_url(digitos):
-    url = f'http://localhost:5000/{digitos}'
+@app.route('/<digits>', methods=('GET',))
+def redirect_to_url(digits):
+    url = f'http://localhost:5000/{digits}'
     
     try:
         with open('urls.json', 'r') as f:
@@ -86,6 +83,6 @@ def api_mode():
     elif 'http' not in url:
         return 'You must enter a valid url'
 
-    url_acortada = shortener(url)
+    shortened_url = shortener(url)
 
-    return {'original':url, 'shortened':url_acortada}
+    return {'original':url, 'shortened':shortened_url}
