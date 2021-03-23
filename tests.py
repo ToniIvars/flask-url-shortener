@@ -1,5 +1,6 @@
 import unittest
 from app import app
+import json
 
 class URLTests(unittest.TestCase):
     def setUp(self):
@@ -37,6 +38,14 @@ class URLTests(unittest.TestCase):
         response = self.app.get('/ongonboerngonwgji', follow_redirects=True)
         
         self.assertEqual(response.status_code, 404)
+    
+    def test_api(self):
+        response = self.app.get('/api?url=https://www.google.com', follow_redirects=True)
+        json_object = json.loads(response.data)
+
+        response = self.app.get(f'/{json_object["shortened"].split("/")[-1]}', follow_redirects=True)
+        
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
