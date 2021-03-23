@@ -90,7 +90,10 @@ def redirect_to_url(digits):
 @app.route('/api')
 def api_mode():
     # Gets the url from the 'url' arg of the url
-    url = request.args['url']
+    try:
+        url = request.args['url']
+    except:
+        return 'You must enter a url as an argument (/api?url=https://www.google.com)'
 
     # Return errors if the 'url' arg doesen't exist or is not valid
     if not url:
