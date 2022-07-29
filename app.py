@@ -1,9 +1,12 @@
 from flask import Flask, render_template, redirect, request, url_for, flash, abort
 from random import sample
-import json
+import json, os
+from dotenv import load_dotenv
 
 def page_not_found(e):
     return render_template('404.html'), 404
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BFhsdDSBnsfgFDNGmjfgdsTSdhgfHGMJKFI'
@@ -14,7 +17,7 @@ def shortener(url):
         digits = 'ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz'
 
         # Create the shortened URL merging 7 digits of above randomly
-        shortened_url = f'http://localhost:5000/{"".join(sample(digits, 7))}'
+        shortened_url = f'{os.getenv("HOST")}/{"".join(sample(digits, 7))}'
 
         # Try-except for controlling if the json file is empty or not
         try:
@@ -68,7 +71,7 @@ def acortado():
 
 @app.route('/<digits>', methods=('GET',))
 def redirect_to_url(digits):
-    url = f'http://localhost:5000/{digits}'
+    url = f'{os.getenv("HOST")}/{digits}'
     
     # Tryes to load the data of the json file. It will fail if the file is empty
     try:
