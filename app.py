@@ -9,7 +9,7 @@ def page_not_found(e):
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'BFhsdDSBnsfgFDNGmjfgdsTSdhgfHGMJKFI'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.register_error_handler(404, page_not_found)
 
 def shortener(url):

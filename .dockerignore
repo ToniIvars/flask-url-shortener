@@ -1,0 +1,10 @@
+*env
+__pycache__
+tests.py
+LICENSE
+Dockerfile
+.dockerignore
+docker-compose.yml
+.gitignore
+README.md
+.vscode

@@ -1,0 +1,10 @@
+services:
+  web:
+    image: flask-shortener
+    container_name: shortener
+    ports:
+      - 8000:8000
+    environment:
+      - SECRET_KEY=764cb9d3cc2d48deb91946e015f3bbe0 # Generate a random secret key
+      - HOST=http://localhost:8000
+    restart: unless-stopped
